@@ -19,10 +19,11 @@ def readfile():
 
 
 def count_sort_ser(numbers):
-    temp = []
-    for i in range(0, N):
+    numbers_len = len(numbers)
+    temp = [0] * numbers_len
+    for i in range(0, numbers_len):
         count = 0
-        for j in range(0, N):
+        for j in range(0, numbers_len):
             if numbers[j] < numbers[i]:
                 count += 1
             elif numbers[j] == numbers[i] & j < i:
