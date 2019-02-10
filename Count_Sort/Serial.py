@@ -1,10 +1,37 @@
 import sys
+import time
 
-N = 7
+import NumberGenerator
+import numpy as np
 
 
-def usage(prog_name):
-    sys.exit('usage:' + prog_name + '<files name> <thread_count>')
+class CountSortSequential:
+    def __init__(self, size_of_numbers):
+        #  file = '../numbers' + str(size_of_numbers) + '.txt'
+        file = '../numbers3.txt'
+        self.numbers = []
+        with open(file, 'r') as f:
+            lines = f.readlines()
+            for item in lines:
+                self.numbers.append(int(item.split()[0]))
+        self.sorted_numbers = np.ndarray(shape=(len(self.numbers)), dtype=int)
+
+    def count_sort_ser(self):
+        start_time = time.time()
+        numbers_len = len(self.numbers)
+        for i in range(0, numbers_len):
+            count = 0
+            for j in range(0, numbers_len):
+                if self.numbers[j] < self.numbers[i]:
+                    count += 1
+                elif self.numbers[j] == self.numbers[i] & j < i:
+                    count += 1
+            self.sorted_numbers[count] = self.numbers[i]
+        print("--- It took %s seconds to sort the numbers ---" % (time.time() - start_time))
+
+
+def usage(program_name):
+    sys.exit('usage:' + program_name + '<files name> < serial | parallel> <numbers> <threads>')
 
 
 def readfile():
@@ -18,24 +45,14 @@ def readfile():
         return files_numbers
 
 
-def count_sort_ser(numbers):
-    numbers_len = len(numbers)
-    temp = [0] * numbers_len
-    for i in range(0, numbers_len):
-        count = 0
-        for j in range(0, numbers_len):
-            if numbers[j] < numbers[i]:
-                count += 1
-            elif numbers[j] == numbers[i] & j < i:
-                count += 1
-        temp[count] = numbers[i]
-    return temp
-
-
 if __name__ == '__main__':
-    # if len(sys.argv) != 3:
+    # if len(sys.argv) != 5 or len(sys.argv) != 4:
     #     Usage(sys.argv[0])
 
-    numbers = readfile()
-    final = count_sort_ser(numbers)
-    print(final)
+    NumberGenerator.generate_numbers(3)
+
+    # TODO: take from sys.argv the size of numbers and
+    # TODO: if asked file doesn't exist call generator , otherwise use the existing file
+    # TODO: remove main
+    numbers = CountSortSequential("size_of_numbers")
+    numbers.count_sort_ser()
