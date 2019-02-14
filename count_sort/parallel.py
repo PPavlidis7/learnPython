@@ -1,11 +1,11 @@
 import time
 
-import NumberGenerator
-import Serial
+import count_sort.number_generator as numbers_generator
+import count_sort.serial as CountSortSequential
 
 
-class CountSortParallel(Serial.CountSortSequential):
-    def count_sort_ser(self):
+class CountSortParallel(CountSortSequential):
+    def count_sort_parallel(self):
         start_time = time.time()
         numbers_len = len(self.numbers)
         for i in range(0, numbers_len):
@@ -24,10 +24,10 @@ if __name__ == '__main__':
     # if len(sys.argv) != 5 or len(sys.argv) != 4:
     #     Usage(sys.argv[0])
 
-    NumberGenerator.generate_numbers(3)
+    numbers_generator(3)
 
     # TODO: implement parallel sort
     # TODO: remove main
     numbers = CountSortParallel("size_of_numbers")
-    numbers.count_sort_ser()
+    numbers.count_sort_parallel()
     print(numbers.sorted_numbers)

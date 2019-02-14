@@ -1,8 +1,9 @@
 import sys
 import time
 
-import NumberGenerator
 import numpy as np
+
+import count_sort.number_generator as numbers_generator
 
 
 class CountSortSequential:
@@ -49,7 +50,7 @@ if __name__ == '__main__':
     # if len(sys.argv) != 5 or len(sys.argv) != 4:
     #     Usage(sys.argv[0])
 
-    NumberGenerator.generate_numbers(3)
+    numbers_generator(3)
 
     # TODO: take from sys.argv the size of numbers and
     # TODO: if asked file doesn't exist call generator , otherwise use the existing file
