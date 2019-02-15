@@ -1,7 +1,8 @@
 import time
 
+import count_sort.serial.CountSortSequential as CountSortSequential
+
 import count_sort.number_generator as numbers_generator
-import count_sort.serial as CountSortSequential
 
 
 class CountSortParallel(CountSortSequential):

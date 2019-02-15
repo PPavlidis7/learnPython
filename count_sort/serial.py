@@ -3,7 +3,10 @@ import time
 
 import numpy as np
 
-import count_sort.number_generator as numbers_generator
+from count_sort import number_generator as numbers_generator
+
+
+# import count_sort.number_generator as numbers_generator
 
 
 class CountSortSequential:
