@@ -1,6 +1,6 @@
-import time
-import threading
 import queue
+import threading
+import time
 
 
 class Consumer(threading.Thread):
