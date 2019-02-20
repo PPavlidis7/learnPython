@@ -51,12 +51,12 @@ if __name__ == '__main__':
     # if len(sys.argv) != 5 or len(sys.argv) != 4:
     #     Usage(sys.argv[0])
 
-    numbers_generator.generate_numbers(10000)
+    numbers_generator.generate_numbers(900)
 
     # TODO: take from sys.argv the size of numbers and
     # TODO: if asked file doesn't exist call generator , otherwise use the existing file
     # TODO: remove main
-    numbers = CountSortSequential(10000)
+    numbers = CountSortSequential(900)
     print("Start sorting...")
     start_time = time.time()
     numbers.count_sort_ser()

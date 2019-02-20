@@ -32,7 +32,7 @@ class CountSortParallel(CountSortSequential):
                     count += 1
                 elif self.numbers[j] == self.numbers[i] and j < i:
                     count += 1
-            print(threadID, "-", i, "-> did", (time.time() - st))
+            # print(threadID, "-", i, "-> did", (time.time() - st))
             self.sorted_numbers[count] = self.numbers[i]
         print(threadID, "-> did", (time.time() - st))
 
@@ -53,11 +53,11 @@ if __name__ == '__main__':
     #     Usage(sys.argv[0])
 
     # call file generator
-    numbers_generator.generate_numbers(10000)
+    numbers_generator.generate_numbers(900)
 
     # TODO: implement parallel sort
     # TODO: remove main
-    numbers = CountSortParallel(10000)
+    numbers = CountSortParallel(900)
     start_time = time.time()
     numbers()
     print("Sorting finished. Start result's validation...")
