@@ -23,8 +23,8 @@ class CountSortParallel(CountSortSequential):
             p = mp.Process(target=self.count_sort_process, args=(i,))
             self.processes.append(p)
             p.start()
+        # for p in self.processes:
 
-        for p in self.processes:
 
 
 if __name__ == '__main__':
