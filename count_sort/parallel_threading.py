@@ -55,7 +55,6 @@ if __name__ == '__main__':
     # call file generator
     numbers_generator.generate_numbers(900)
 
-    # TODO: implement parallel sort
     # TODO: remove main
     numbers = CountSortParallel(900)
     start_time = time.time()
