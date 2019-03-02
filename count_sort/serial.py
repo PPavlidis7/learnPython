@@ -32,14 +32,10 @@ class CountSortSequential:
     def sort_validation(self):
         for index, number in enumerate(self.sorted_numbers):
             if number == 0:
-                break
                 return False
             elif index + 1 < len(self.sorted_numbers) and \
                     self.sorted_numbers[index] < self.sorted_numbers[index + 1]:
                 continue
-            else:
-                break
-                return False
         return True
 
 
@@ -51,18 +47,17 @@ if __name__ == '__main__':
     # if len(sys.argv) != 5 or len(sys.argv) != 4:
     #     Usage(sys.argv[0])
 
-    numbers_generator.generate_numbers(900)
+    numbers_generator.generate_numbers(10000)
 
     # TODO: take from sys.argv the size of numbers and
     # TODO: if asked file doesn't exist call generator , otherwise use the existing file
     # TODO: remove main
-    numbers = CountSortSequential(900)
+    numbers = CountSortSequential(10000)
     print("Start sorting...")
     start_time = time.time()
     numbers.count_sort_ser()
     if numbers.sort_validation():
         print("--- Sorting succeeded ---")
         print("--- It took %s seconds to sort the numbers ---" % (time.time() - start_time))
-        # print(self.sorted_numbers)
     else:
         print("Sorting failed...")
