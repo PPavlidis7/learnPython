@@ -5,8 +5,8 @@ import time
 def worker(counter):
     id = threading.current_thread()
     print("thread %s started" % id)
-    time.sleep(4)
-    if counter < 4:
+    time.sleep(2)
+    if counter < 1000:
         counter += 1
         t = threading.Thread(target=worker, args=(counter,))
         t.start()

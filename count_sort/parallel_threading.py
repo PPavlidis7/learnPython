@@ -1,6 +1,7 @@
 import threading
 import time
-
+import sys
+sys.path.append('../')
 import count_sort.number_generator as numbers_generator
 from count_sort.serial import CountSortSequential
 
@@ -14,14 +15,14 @@ class CountSortParallel(CountSortSequential):
         self.threads = []
         self.main_thread = threading.currentThread()
 
-    def count_sort_thread(self, threadID):
-        start = int((self.size_of_numbers / self.total_threads)) * threadID
+    def count_sort_thread(self, thread_id):
+        start = int((self.size_of_numbers / self.total_threads)) * thread_id
         steps = int(self.size_of_numbers / self.total_threads)
 
-        if threadID == self.total_threads - 1:
+        if thread_id == self.total_threads - 1:
             steps += (self.size_of_numbers % self.total_threads)
 
-        print(threadID, "->", start, steps)
+        print(thread_id, "->", start, steps)
         # time.sleep(random.uniform(0, 4))
         st = time.time()
         numbers_len = len(self.numbers)
@@ -34,7 +35,7 @@ class CountSortParallel(CountSortSequential):
                     count += 1
             # print(threadID, "-", i, "-> did", (time.time() - st))
             self.sorted_numbers[count] = self.numbers[i]
-        print(threadID, "-> did", (time.time() - st))
+        print(thread_id, "-> did", (time.time() - st))
 
     def __call__(self):
         for i in range(self.total_threads):
@@ -55,7 +56,6 @@ if __name__ == '__main__':
     # call file generator
     numbers_generator.generate_numbers(900)
 
-    # TODO: remove main
     numbers = CountSortParallel(900)
     start_time = time.time()
     numbers()

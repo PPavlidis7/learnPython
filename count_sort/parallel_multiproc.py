@@ -1,12 +1,15 @@
 import multiprocessing as mp
 import time
-
 import numpy
+
+import sys
+sys.path.append('../')
+
 
 import count_sort.number_generator as numbers_generator
 from count_sort.serial import CountSortSequential
 
-''' Try with multiprocess'''
+''' Try with multiprocess - SUCCESS'''
 
 
 class CountSortParallel(CountSortSequential):
@@ -48,12 +51,6 @@ class CountSortParallel(CountSortSequential):
         for p in self.processes:
             p.join()
 
-    def with_pool(self):
-        proc_id = 0
-        with mp.Pool(processes=self.total_process) as pool:
-            pool.apply_async(self.count_sort_process, proc_id)
-            proc_id += 1
-
     def sort_validation(self):
         self.sorted_numbers = numpy.array(self.sorted_numbers)
         return super().sort_validation()
@@ -64,12 +61,10 @@ if __name__ == '__main__':
     #     Usage(sys.argv[0])
 
     # call file generator
-    numbers_generator.generate_numbers(50000)
-    # TODO: remove main
-    numbers = CountSortParallel(50000)
+    numbers_generator.generate_numbers(5000)
+    numbers = CountSortParallel(5000)
     start_time = time.time()
     numbers.with_process()
-    # numbers.with_pool()
     print("Sorting finished. Start result's validation...")
     if numbers.sort_validation():
         print("--- Sorting succeeded ---")

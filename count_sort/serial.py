@@ -49,9 +49,6 @@ if __name__ == '__main__':
 
     numbers_generator.generate_numbers(10000)
 
-    # TODO: take from sys.argv the size of numbers and
-    # TODO: if asked file doesn't exist call generator , otherwise use the existing file
-    # TODO: remove main
     numbers = CountSortSequential(10000)
     print("Start sorting...")
     start_time = time.time()
