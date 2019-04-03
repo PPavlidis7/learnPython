@@ -11,7 +11,7 @@ class CountSortSequential:
         file = '../numbers' + str(size_of_numbers) + '.txt'
         # file = '../numbers100000.txt'
         self.numbers = []
-        with open(file, 'r') as f:
+        with open(file, 'r') as f: # kimeno = fin.read()
             lines = f.readlines()
             for item in lines:
                 self.numbers.append(int(item.split()[0]))
@@ -47,9 +47,9 @@ if __name__ == '__main__':
     # if len(sys.argv) != 5 or len(sys.argv) != 4:
     #     Usage(sys.argv[0])
 
-    numbers_generator.generate_numbers(10000)
+    numbers_generator.generate_numbers(900)
 
-    numbers = CountSortSequential(10000)
+    numbers = CountSortSequential(900)
     print("Start sorting...")
     start_time = time.time()
     numbers.count_sort_ser()

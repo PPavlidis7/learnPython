@@ -61,8 +61,8 @@ if __name__ == '__main__':
     #     Usage(sys.argv[0])
 
     # call file generator
-    numbers_generator.generate_numbers(5000)
-    numbers = CountSortParallel(5000)
+    numbers_generator.generate_numbers(900)
+    numbers = CountSortParallel(900)
     start_time = time.time()
     numbers.with_process()
     print("Sorting finished. Start result's validation...")
