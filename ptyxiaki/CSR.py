@@ -5,7 +5,7 @@ import numpy as np
 
 def read_matrix():
     # A = []
-    with open('matrix.txt', 'r') as f:
+    with open('output-1000_1000_-100_100.txt', 'r') as f:
         A = [list(map(int, line.split())) for line in f]
     return A
 
@@ -26,7 +26,7 @@ def create_vectors():
     print("IA = ", IA)
     print("JA = ", JA)
 
-    return AR, IA, JA
+    return AR, IA, JA, A
 
 
 def create_vectors_paral(line, AR, priv_IA, priv_JA):
@@ -64,7 +64,7 @@ def initialize_paral():
 
 
 def take_it_back(AR,IA,JA):
-    a = np.zeros(shape=(10,10), dtype=np.int)
+    a = np.zeros(shape=(100, 100), dtype=np.int)
     temp=[]
     rows=[]
     for index,value in enumerate(IA):
@@ -81,10 +81,12 @@ def take_it_back(AR,IA,JA):
         for inner_2 in inner_1:
             a[index][JA[index_counter]] = inner_2
             index_counter +=1
+    print("------------------------------------------------------")
     print(a)
+    return a
 
 
 if __name__ == '__main__':
-    AR,IA,JA=create_vectors()
-    # take_it_back(AR,IA,JA)
-    initialize_paral()
+    AR, IA, JA, A = create_vectors()
+    second_a = take_it_back(AR, IA, JA)
+    print(np.array_equal(A, second_a))
