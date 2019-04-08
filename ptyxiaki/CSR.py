@@ -1,11 +1,13 @@
 import multiprocessing as mp
-
+import sys
+import time
 import numpy as np
 
 
 def read_matrix():
-    # A = []
-    with open('output-1000_1000_-100_100.txt', 'r') as f:
+    file_name = 'output' + sys.argv[1] + '.txt'
+    # file_name = 'matrix.txt'
+    with open(file_name, 'r') as f:
         A = [list(map(int, line.split())) for line in f]
     return A
 
@@ -13,6 +15,7 @@ def read_matrix():
 def create_vectors():
     A = read_matrix()
     AR, IA, JA = [], [], []
+    start_time = time.time()
     IA.append(1)
     ne_counter = 1
     for row, line in enumerate(A):
@@ -22,9 +25,12 @@ def create_vectors():
                 ne_counter += 1
                 JA.append(col)
         IA.append(ne_counter)
-    print("AR = ", AR)
-    print("IA = ", IA)
-    print("JA = ", JA)
+    total_time = time.time() - start_time
+    with open('time.txt', 'a') as f:
+        f.write('%s\t%.5f\n' %(sys.argv[1], total_time))
+    # print("AR = ", AR)
+    # print("IA = ", IA)
+    # print("JA = ", JA)
 
     return AR, IA, JA, A
 
@@ -88,5 +94,5 @@ def take_it_back(AR,IA,JA):
 
 if __name__ == '__main__':
     AR, IA, JA, A = create_vectors()
-    second_a = take_it_back(AR, IA, JA)
-    print(np.array_equal(A, second_a))
+    # second_a = take_it_back(AR, IA, JA)
+

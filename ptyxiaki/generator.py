@@ -1,5 +1,5 @@
 import time
-
+import sys
 import numpy as np
 from scipy.sparse import random
 
@@ -65,7 +65,8 @@ def generate_sparse_matrix(lb, ub, m, n, dens):
 
 
 def write_matrix_to_file(lb, ub, m, n, matrix):
-    file_name = 'output' + str(lb) + "_" + str(ub) + "_" + str(m) + "_" + str(n) + ".txt"
+    # file_name = 'output' + str(lb) + "_" + str(ub) + "_" + str(m) + "_" + str(n) + ".txt"
+    file_name = 'output' + sys.argv[1] + '.txt'
     matrix = matrix.toarray()
     with open(file_name,'w') as f:
         for item in matrix:
@@ -81,8 +82,8 @@ def main():
     # lb, ub, m, n, dens = get_user_input()
     # generated_matrix = generate_sparse_matrix(lb, ub, m, n, dens)
     # lb, ub, m, n, dens = -1000, 1000,100,100
-    generated_matrix = generate_sparse_matrix(-1000, 1000, 100, 100, 0.1)
-    write_matrix_to_file(-1000, 1000, -100, 100, generated_matrix)
+    generated_matrix = generate_sparse_matrix(-1000, 1000, int(sys.argv[1]), int(sys.argv[1]), 0.1)
+    write_matrix_to_file(-1000, 1000, 100, 100, generated_matrix)
     print(generated_matrix.A)
 
 
