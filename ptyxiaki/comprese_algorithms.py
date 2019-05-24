@@ -1,18 +1,17 @@
-import multiprocessing as mp
-import sys
 import time
+
 import numpy as np
 
 
 def read_matrix():
-    file_name = 'output' + sys.argv[1] + '.txt'
-    # file_name = 'output.txt'
+    # file_name = 'output' + sys.argv[1] + '.txt'
+    file_name = 'output.txt'
     start_time = time.time()
     with open(file_name, 'r') as f:
         A = [list(map(int, line.split())) for line in f]
     total_time = time.time() - start_time
-    with open('read_time.txt', 'a') as f:
-        f.write('%s\t%.5f\n' % (sys.argv[1], total_time))
+    # with open('read_time.txt', 'a') as f:
+    #     f.write('%s\t%.5f\n' % (sys.argv[1], total_time))
     return np.array(A)
 
 
@@ -29,11 +28,12 @@ def CSR(A):
                 JA.append(col)
         IA.append(ne_counter)
     total_time = time.time() - start_time
-    with open('execution_time.txt', 'a') as f:
-        f.write('%s\t%.5f\n' %(sys.argv[1], total_time))
-    # print("AR = ", AR)
-    # print("IA = ", IA)
-    # print("JA = ", JA)
+    print("total_time", total_time)
+    # with open('execution_time.txt', 'a') as f:
+    #     f.write('%s\t%.5f\n' %(sys.argv[1], total_time))
+    print("AR = ", AR)
+    print("IA = ", IA)
+    print("JA = ", JA)
     return AR, IA, JA
 
 
@@ -50,7 +50,6 @@ def COO(A):
 
 def CSC(A):
     AR, IA, JA = [], [], []
-    IA.append(0)
     ne_counter = 0
     for col, line in enumerate(A.T):
         for row, value in enumerate(line):
