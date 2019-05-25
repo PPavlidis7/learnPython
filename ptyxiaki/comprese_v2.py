@@ -99,6 +99,7 @@ def diagonal(A):
             else:
                 AD = np.column_stack((AD, (lower_inner_diagonal)))
 
+    print("total time : ", time.time() - start_time)
     print(AD)
     print(LA)
 
@@ -186,12 +187,12 @@ def take_it_back(AR, IA, JA):
 
 if __name__ == '__main__':
     A = read_matrix()
-    AR1, IA1, JA1 = CSR(A)
+    # AR1, IA1, JA1 = CSR(A)
     # AR1, IA1, JA1 = CSC(np.array(A))
     # AR2, IA2, JA2 = COO(A)
     # AR3, IA3, JA3 = CSC(A)
     # AR4, IA4, JA4 = create_vectors()
-    # diagonal(A)
+    diagonal(A)
 
     # second_a = take_it_back(AR3, IA3, JA3)
 
