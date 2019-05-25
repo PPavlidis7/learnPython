@@ -1,4 +1,5 @@
 import time
+import sys
 
 
 def read_matrix(file):
@@ -15,7 +16,8 @@ def CSR():
     AR, IA, JA = [], [], []
     IA.append(0)
     ne_counter = 0
-    file_name = 'output.txt'
+    file_name = 'output' + sys.argv[1] + '.txt'
+    # file_name = 'output.txt'
     with open(file_name, 'r') as f:
         for line in read_matrix(f):
             for col, value in enumerate(line):
@@ -25,25 +27,35 @@ def CSR():
                     JA.append(col)
             IA.append(ne_counter)
 
-    print("AR = ", AR)
-    print("IA = ", IA)
-    print("JA = ", JA)
+    # print("AR = ", AR)
+    # print("IA = ", IA)
+    # print("JA = ", JA)
     return AR, IA, JA
 
 
-def COO(A):
+def COO():
     AR, IA, JA = [], [], []
-    for row, line in enumerate(A):
-        for col, value in enumerate(line):
-            if value != 0:
-                AR.append(value)
-                IA.append(row)
-                JA.append(col)
+    file_name = 'output' + sys.argv[1] + '.txt'
+    # file_name = 'output.txt'
+    with open(file_name, 'r') as f:
+        for row,line in enumerate(read_matrix(f)):
+            for col, value in enumerate(line):
+                if value != 0:
+                    AR.append(value)
+                    IA.append(row)
+                    JA.append(col)
     return AR, IA, JA
 
 
 if __name__ == '__main__':
     start_time = time.time()
     AR1, IA1, JA1 = CSR()
-    print("total time : ", time.time() - start_time)
-    # AR2, IA2, JA2 = COO(A)
+    total_time = time.time() - start_time
+    with open('execution_time.txt', 'a') as f:
+        f.write('CSR3 %s\t%.5f\n' % (sys.argv[1], total_time))
+
+    start_time = time.time()
+    AR2, IA2, JA2 = COO()
+    total_time = time.time() - start_time
+    with open('execution_time.txt', 'a') as f:
+        f.write('COO3 %s\t%.5f\n' % (sys.argv[1], total_time))

@@ -1,15 +1,13 @@
 import time
-
+import sys
 
 def read_matrix():
-    # file_name = 'output' + sys.argv[1] + '.txt'
-    file_name = 'output.txt'
+    file_name = 'output' + sys.argv[1] + '.txt'
+    # file_name = 'output.txt'
     start_time = time.time()
     with open(file_name, 'r') as f:
         A = tuple([tuple(map(int, line.split())) for line in f])
     total_time = time.time() - start_time
-    # with open('read_time.txt', 'a') as f:
-    #     f.write('%s\t%.5f\n' % (sys.argv[1], total_time))
     return A
 
 
@@ -45,9 +43,9 @@ def diagonal():
     else:
         create_ad_without_main_diagonal(AD, upper_diagonals, lower_diagonals, a_length)
 
-    print("total time : ", time.time() - start_time)
-    # print(AD)
-    print(LA)
+    total_time = time.time() - start_time
+    with open('execution_time.txt', 'a') as f:
+        f.write('Diagonal %s\t%.5f\n' % (sys.argv[1], total_time))
 
 
 def create_ad_with_main_diagonal(AD, main_diagonal, upper_diagonals, lower_diagonals, a_length):
@@ -120,9 +118,8 @@ def get_lower_inner_diagonal(row, a_length):
 
     if found_nv:
         left_zeros = a_length - len(temp_diagonal)
-        for index in range(0, left_zeros):
-            temp_diagonal.insert(0, 0)
-        return temp_diagonal
+        diagonal_to_send = [0] * left_zeros
+        return diagonal_to_send + temp_diagonal
     else:
         return []
 

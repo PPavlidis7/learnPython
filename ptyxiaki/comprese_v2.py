@@ -1,25 +1,25 @@
 import time
-
+import sys
 import numpy as np
 
 
 def read_matrix():
-    # file_name = 'output' + sys.argv[1] + '.txt'
-    file_name = 'output.txt'
+    file_name = 'output' + sys.argv[1] + '.txt'
+    # file_name = 'output.txt'
     start_time = time.time()
     with open(file_name, 'r') as f:
         A = tuple([tuple(map(int, line.split())) for line in f])
     total_time = time.time() - start_time
-    # with open('read_time.txt', 'a') as f:
-    #     f.write('%s\t%.5f\n' % (sys.argv[1], total_time))
+    with open('read_time.txt', 'a') as f:
+        f.write('comprese_v2 %s\t%.5f\n' % (sys.argv[1], total_time))
     return A
 
 
 def CSR(A):
     AR, IA, JA = [], [], []
+    ne_counter = 0
     start_time = time.time()
     IA.append(0)
-    ne_counter = 0
     for row, line in enumerate(A):
         for col, value in enumerate(line):
             if value != 0:
@@ -28,29 +28,30 @@ def CSR(A):
                 JA.append(col)
         IA.append(ne_counter)
     total_time = time.time() - start_time
-    # with open('execution_time.txt', 'a') as f:
-    #     f.write('%s\t%.5f\n' %(sys.argv[1], total_time))
-    print("Time", total_time)
-    print("AR = ", AR)
-    print("IA = ", IA)
-    print("JA = ", JA)
+    with open('execution_time.txt', 'a') as f:
+        f.write('CSR %s\t%.5f\n' % (sys.argv[1], total_time))
     return AR, IA, JA
 
 
 def COO(A):
     AR, IA, JA = [], [], []
+    start_time = time.time()
     for row, line in enumerate(A):
         for col, value in enumerate(line):
             if value != 0:
                 AR.append(value)
                 IA.append(row)
                 JA.append(col)
+    total_time = time.time() - start_time
+    with open('execution_time.txt', 'a') as f:
+        f.write('COO %s\t%.5f\n' % (sys.argv[1], total_time))
     return AR, IA, JA
 
 
 def CSC(A):
     AR, IA, JA = [], [], []
     ne_counter = 0
+    start_time = time.time()
     for col, line in enumerate(A.T):
         for row, value in enumerate(line):
             if value != 0:
@@ -61,10 +62,9 @@ def CSC(A):
                 if len(JA) == 0:
                     JA.append(col)
         JA.append(ne_counter)
-
-    print("AR = ", AR)
-    print("IA = ", IA)
-    print("JA = ", JA)
+    total_time = time.time() - start_time
+    with open('execution_time.txt', 'a') as f:
+        f.write('CSC %s\t%.5f\n' % (sys.argv[1], total_time))
     return AR, IA, JA
 
 
@@ -99,7 +99,6 @@ def diagonal(A):
             else:
                 AD = np.column_stack((AD, (lower_inner_diagonal)))
 
-    print("total time : ", time.time() - start_time)
     print(AD)
     print(LA)
 
@@ -187,12 +186,9 @@ def take_it_back(AR, IA, JA):
 
 if __name__ == '__main__':
     A = read_matrix()
-    # AR1, IA1, JA1 = CSR(A)
-    # AR1, IA1, JA1 = CSC(np.array(A))
-    # AR2, IA2, JA2 = COO(A)
-    # AR3, IA3, JA3 = CSC(A)
+    AR1, IA1, JA1 = CSR(A)
+    AR1, IA1, JA1 = CSC(np.array(A))
+    AR2, IA2, JA2 = COO(A)
     # AR4, IA4, JA4 = create_vectors()
-    diagonal(A)
 
     # second_a = take_it_back(AR3, IA3, JA3)
-
