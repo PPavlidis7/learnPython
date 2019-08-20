@@ -1,16 +1,18 @@
-import time
 import sys
+import time
+
+sys.path.append('../')
+from profile import profile
 
 def read_matrix():
-    file_name = 'output' + sys.argv[1] + '.txt'
-    # file_name = 'output.txt'
-    start_time = time.time()
+    # file_name = 'output' + sys.argv[1] + '.txt'
+    file_name = 'output.txt'
     with open(file_name, 'r') as f:
         A = tuple([tuple(map(int, line.split())) for line in f])
-    total_time = time.time() - start_time
     return A
 
 
+@profile
 def diagonal():
     LA, AD = [], [[]]
     a_length = len(A)
@@ -44,8 +46,11 @@ def diagonal():
         create_ad_without_main_diagonal(AD, upper_diagonals, lower_diagonals, a_length)
 
     total_time = time.time() - start_time
-    with open('execution_time.txt', 'a') as f:
-        f.write('Diagonal %s\t%.5f\n' % (sys.argv[1], total_time))
+    # with open('execution_time.txt', 'a') as f:
+    #     f.write('Diagonal %s\t%.5f\n' % (sys.argv[1], total_time))
+    print("total time : ", total_time)
+    # print(AD)
+    # print(LA)
 
 
 def create_ad_with_main_diagonal(AD, main_diagonal, upper_diagonals, lower_diagonals, a_length):
@@ -62,7 +67,6 @@ def create_ad_with_main_diagonal(AD, main_diagonal, upper_diagonals, lower_diago
             AD[row].append(lower_diagonals[index][row])
 
         row += 1
-    return AD
 
 
 def create_ad_without_main_diagonal(AD, upper_diagonals, lower_diagonals, a_length):
@@ -76,9 +80,7 @@ def create_ad_without_main_diagonal(AD, upper_diagonals, lower_diagonals, a_leng
 
         for index in range(lowers_number):
             AD[row].append(lower_diagonals[index][row])
-
         row += 1
-    return AD
 
 
 def get_upper_inner_diagonal(col, a_length):
@@ -96,7 +98,7 @@ def get_upper_inner_diagonal(col, a_length):
 
     if found_nv:
         left_zeros = a_length - len(temp_diagonal)
-        for index in range(0, left_zeros):
+        for index in range(left_zeros):
             temp_diagonal.append(0)
         return temp_diagonal
     else:
@@ -118,8 +120,7 @@ def get_lower_inner_diagonal(row, a_length):
 
     if found_nv:
         left_zeros = a_length - len(temp_diagonal)
-        diagonal_to_send = [0] * left_zeros
-        return diagonal_to_send + temp_diagonal
+        return ([0] * left_zeros) + temp_diagonal
     else:
         return []
 
